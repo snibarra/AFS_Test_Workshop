@@ -34,12 +34,15 @@ catch_df <-catch_df%>%
 head(catch_df)
 ```
 
-
-
+##Converting the columns to being stacked instead of side by side (wide)
 ```{r}
+catch_df <- catch_df %>% 
+  gather(species, catch, -Region, -Year)
 
+head(catch_df)
 ```
 
+##Renaming catch column to catch in thousands
 ```{r}
 catch_df <- catch_df %>% 
   rename(catch_thousands = catch)
@@ -56,10 +59,9 @@ head(catch_df, 30)
 ```
 
 ```{r}
-catch_df <- catch_df %>% 
-  gather(species, catch, -Region, -Year)
-
-head(catch_df)
+catch_df <- catch_df %>%
+  mutate(catch = catch_thousands * 1000)
+summary(catch_df)
 ```
 
 ```{r}
